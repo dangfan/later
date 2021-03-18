@@ -71,7 +71,7 @@ func deleteHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(400)
 		return
 	}
-	err := deleteTask(request.ID)
+	err := deleteTask(request.ID, "api")
 	if err != nil {
 		log.WithError(err).Error("delete task fail")
 		w.WriteHeader(500)

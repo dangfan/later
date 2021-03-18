@@ -34,6 +34,7 @@ const (
 )
 
 func post(task *Task) (int, error) {
+	log.Info("post task: " + task.ID + ", " + task.Content)
 	request := callbackRequest{
 		ID:      task.ID,
 		Topic:   task.Topic,

@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 
-	"github.com/btfak/later/queue"
+	"github.com/dangfan/later/queue"
 	log "github.com/sirupsen/logrus"
 )
 

@@ -3,6 +3,7 @@ package queue
 import (
 	"encoding/json"
 	"fmt"
+	log "github.com/sirupsen/logrus"
 
 	"github.com/garyburd/redigo/redis"
 )
@@ -118,7 +119,8 @@ func unackToError(id string, score int64) error {
 	return err
 }
 
-func deleteTask(id string) error {
+func deleteTask(id string, reason string) error {
+	log.Info("delete " + id + " due to " + reason)
 	c := pool.Get()
 	defer c.Close()
 	_, err := c.Do("DEL", id)

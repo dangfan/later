@@ -70,7 +70,7 @@ func callback(id string) {
 	task, err := getTask(id)
 	if err != nil {
 		if err == redis.ErrNil {
-			if err = deleteTask(id); err != nil {
+			if err = deleteTask(id, "redis nil"); err != nil {
 				log.WithError(err).Error("delete task fail")
 			}
 		}
@@ -89,7 +89,7 @@ func callback(id string) {
 		goto retry
 	}
 	if code == CodeSuccess {
-		if err = deleteTask(id); err != nil {
+		if err = deleteTask(id, "success"); err != nil {
 			log.WithError(err).Error("delete task fail")
 		}
 		return
@@ -99,7 +99,7 @@ func callback(id string) {
 retry:
 	task.HasRetry++
 	if task.HasRetry > task.MaxRetry {
-		if err = deleteTask(id); err != nil {
+		if err = deleteTask(id, "too many retries"); err != nil {
 			log.WithError(err).Error("delete task fail")
 		}
 		return
